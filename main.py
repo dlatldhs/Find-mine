@@ -148,3 +148,31 @@ def runGame():
                                     break
                         if success:
                             game_over = SUCCESS
+        for column_index in range(COLUMN_COUNT):
+            for row_index in range(ROW_COUNT):
+                tile = grid[row_index][column_index]
+                if tile['mine_count_around']:
+                    mine_count_around_image = small_font.render('{}'.format(tile['mine_count_around']), True, YELLOW)
+                    screen.blit(mine_count_around_image, mine_count_around_image.get_rect(centerx=column_index * CELL_SIZE + CELL_SIZE // 2, centery=row_index * CELL_SIZE + CELL_SIZE // 2))
+                if tile['mine']: 
+                    mine_image = small_font.render('x', True, RED)
+                    screen.blit(mine_image, mine_image.get_rect(centerx=column_index * CELL_SIZE + CELL_SIZE // 2, centery=row_index * CELL_SIZE + CELL_SIZE // 2)) #지뢰 설치
+                if not tile['open']:
+                    pygame.draw.rect(screen, GRAY, pygame.Rect(column_index * CELL_SIZE, row_index * CELL_SIZE, CELL_SIZE, CELL_SIZE)) #커버
+                if tile['flag']: 
+                    v_image = small_font.render('v', True, WHITE)
+                    screen.blit(v_image, (column_index * CELL_SIZE + 10, row_index * CELL_SIZE + 10)) 
+                pygame.draw.rect(screen, WHITE, pygame.Rect(column_index * CELL_SIZE, row_index * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1)
+
+        if game_over > 0:
+            if game_over == SUCCESS:
+                success_image = large_font.render('Success', True, RED)
+                screen.blit(success_image, success_image.get_rect(centerx=SCREEN_WIDTH // 2, centery=SCREEN_HEIGHT // 2))
+            elif game_over == FAILURE:
+                failure_image = large_font.render('Failure', True, RED)
+                screen.blit(failure_image, failure_image.get_rect(centerx=SCREEN_WIDTH // 2, centery=SCREEN_HEIGHT // 2))
+
+        pygame.display.update() 
+
+runGame()
+pygame.quit()
