@@ -43,3 +43,20 @@ ROW_COUNT = SCREEN_HEIGHT // CELL_SIZE
 # flag 는 flag활성화 여부 
 grid = [[{'mine': False, 'open': False, 'mine_count_around': 0, 'flag': False} for _ in range(COLUMN_COUNT)] for _ in range(ROW_COUNT)]
 #======================================================================================================================================
+
+MINE_COUNT = 15
+
+for _ in range(MINE_COUNT):
+    while True:
+        #가로 세로 지뢰 랜덤하게 index 정하는 거 =========
+        column_index = random.randint(0, COLUMN_COUNT - 1)
+        row_index = random.randint(0, ROW_COUNT - 1)
+        #=================================================
+        tile = grid[row_index][column_index]
+
+        #리스트안에 지뢰가 없으면 실행해서 지뢰를안에 넣음 
+        if not tile['mine']:
+            tile['mine'] = True 
+            break
+
+clock = pygame.time.Clock() 
