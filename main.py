@@ -60,3 +60,9 @@ for _ in range(MINE_COUNT):
             break
 
 clock = pygame.time.Clock() 
+
+def in_bound(column_index, row_index):
+    if (0 <= column_index < COLUMN_COUNT and 0 <= row_index < ROW_COUNT):
+        return True
+    else:
+        return False
